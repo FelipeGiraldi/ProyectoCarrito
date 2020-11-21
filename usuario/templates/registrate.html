@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% load crispy_forms_tags%} {% block content %}
+
+<div class="row justify-content-center pt-5">
+    <div class="">
+        <div class="form-group">
+            <hr bg-info>
+            <h2 class="text-info">Complete Sus Datos</h2>
+            <p class="pb-0 mb-0 ">Crear Cuenta Cliente</p>
+            <hr bg-info>
+        </div>
+        <form method="POST" action="" class="" autocomplete="off">{% csrf_token%} {{form|crispy}}
+
+            <button class="btn btn-info" type="submit">Crear Cuenta Cliente</button>
+            <hr bg-info>
+        </form>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<div class="wrap">
+    <h1 class="text-info">Promociones</h1>
+    <h4>Canal de Atención</h4>
+    <br>
+    <div class="store-wrapper">
+        <div class="category_list">
+            {% for canal in Can %}
+            <a href="#" class="category_item" category="{{canal.descripcion}}">{{canal.descripcion}}</a> {% endfor %}
+        </div>
+
+        <div class="products-list">
+            {% for pro in promo %}
+            <div class="product-item" category="{{pro.canal}}">
+                <img src=" {{pro.img}}" alt="">
+                <a>{{pro.especificacion}}</a>
+                <a>precio: {{pro.precio_nuevo}}</a>
+                <a href="{% url 'carrito:AgregarProducto' pro.id %}" class="btn btn-success">Añadir al carrito</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+</div>
+<div class="container mt-3">
+    {% if messages %}
+        <div class="row mt-3 mb-3">
+            <div class="col-12">
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}    
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+
+{% extends "base.html" %} {% block content %}
+{% load cart_tags %}
+<table class="table table-bordered">
+     <thead>
+        <tr>
+            <th colspan="3" class="text-center">
+                Carrito de compras
+            </th>
+        </tr>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carrito.items %}
+           {% for key, value in request.session.carrito.items %}
+                <tr class="text-center">
+                    <td>{{ value.nombre }}</td>
+                    <td>{{ value.cantidad }}</td>
+                    <td>
+                        <a
+                            href="{% url 'carrito:AgregarProducto' value.producto_id %}"
+                            class="btn btn-sm btn-success"
+                        >
+                            +
+                        </a>
+                        <a
+                            href="{% url 'carrito:DecrementarProducto' value.producto_id %}"
+                            class="ml-2 btn-sm btn btn-danger"
+                        >
+                            -
+                        </a>
+                        total {{ value.precio|Multiplicar:value.cantidad|FormatoMoneda:"$" }}
+                    </td>
+                </tr>
+           {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">
+                    <div class="alert alert-danger text-center">
+                        No tienes productos en el carrito
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                Total: {{ MontoTotalCarrito|FormatoMoneda:"$" }}
+            </td>
+        </tr>
+        {% if request.session.carrito.items %}
+            <tr>
+                <td colspan="3">
+                    <a href="{% url 'process_order' %}" class="btn btn-success">Crear pedido</a>
+                </td>
+            </tr>
+        {% endif %}
+    </tfoot>
+</table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+{% load cart_tags %}
+<div class="wrap">
+    <h1 class="text-info">Escoge una categoria de producto</h1>
+    <div class="store-wrapper">
+        <div class="category_list">
+            {% for tip in tipo %}
+            <a href="#" class="category_item" category="{{tip.descripcion}}">{{tip.descripcion}}</a> {% endfor %}
+        </div>
+
+        <div class="products-list">
+            {% for muebles in prod %}
+            <div class="product-item" category="{{muebles.id_tipo}}">
+                <img src=" {{muebles.img}}" alt="">
+                <a href="#">{{muebles.especificacion}}</a>
+                <a>precio: {{muebles.precio_venta}}</a>
+                <a href="{% url 'carrito:AgregarProducto' muebles.id %}" class="btn btn-success">Añadir al carrito</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="container mt-3">
+    {% if messages %}
+        <div class="row mt-3 mb-3">
+            <div class="col-12">
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}    
+</div>
+{% endblock %}
